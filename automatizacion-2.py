@@ -1,13 +1,12 @@
 import pandas as pd
 
 # Leer los archivos de Excel en DataFrames
-
 tabla_a = pd.read_excel('tabla_a.xlsx', sheet_name="Hoja1")
 tabla_b = pd.read_excel('tabla_b.xlsx', sheet_name="Hoja1")
 
 # Realizar la operación de búsqueda y combinación
-
-tabla_b_completada = tabla_b.merge(tabla_a[['CODSUM', 'NOMBRE']], on='CODSUM', how='left')
+tabla_b = tabla_b.merge(tabla_a[['SUMINISTRO', 'NOMBRES']], on='SUMINISTRO', how='left')
+tabla_b['NUMEROFICHA'] = tabla_b['NUMEROFICHA'].fillna('').astype(str) + tabla_b['NOMBRES'].fillna('').astype(str)
 
 # Guardar el resultado en un nuevo archivo de Excel
-tabla_b_completada.to_excel('tabla_b_completada.xlsx', index=False)
+tabla_b.to_excel('tabla_b.xlsx', index=False)
